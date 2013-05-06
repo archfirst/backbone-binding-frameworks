@@ -1,0 +1,130 @@
+/* -----------------------------------------------------------------------------
+ * general
+ * -------------------------------------------------------------------------- */
+/* apply a natural box layout model to all elements */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1 {
+    font: normal bold 13px/18px Arial, sans-serif;
+    margin: 0 0 8px 0;
+}
+
+#container {
+    background: #bfbfbf;
+    float: left;
+    margin: 20px;
+    padding: 20px;
+    width: 260px;
+}
+
+.field.text,
+.field.password,
+.field.select,
+.field.slider,
+.form fieldset {
+    margin-bottom: 10px;
+}
+
+.form fieldset {
+    background-color: #a3a3a3;
+    padding: 23px 0 5px 8px;
+    position: relative;
+}
+
+.form fieldset legend span {
+    color: #F8E5C9;
+    font: 12px/12px Arial;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.field.text label,
+.field.password label,
+.field.select label {
+    background-color: #666666;
+    color: #F8E5C9;
+    display: block;
+    font: 11px/25px Arial;
+    padding-left: 9px;
+    height: 25px;
+    width: 80px;
+}
+
+.field.text input,
+.field.password input,
+.field.select select {
+    padding-left: 7px;
+    height: 25px;
+    width: 100%;
+}
+
+.field.checkbox label,
+.field.radio label {
+    color: #000000;
+    font: 11px/11px Arial;
+    margin-bottom: 5px;
+}
+
+.field.checkbox input,
+.field.radio input {
+    background: #dddddd;
+    color: white;
+    font: 11px/11px Arial;
+    height: 11px;
+    width: 12px;
+}
+
+.field.slider {
+    padding: 10px 8px;
+    font: 12px/12px Arial;
+}
+
+.field.slider .control {
+    float: left;
+    width: 80%;
+}
+
+.field.slider .value {
+    float: left;
+    width: 20%;
+    text-align: right;
+}
+
+.toolbar {
+    margin-top: 16px;
+    text-align: center;
+}
+
+#model-data {
+    background: #bfbfbf;
+    float: left;
+    margin-top: 20px;
+    padding: 20px;
+    width: 260px;
+    height: 490px;
+}
+
+#order-action-fieldset {
+    height: 64px;
+}
+
+#order-type-fieldset {
+    height: 64px;
+}
+
+#order-market-value-fieldset {
+    height: 58px;
+}
+
+.value-theme-a {
+    background-color: white;
+    line-height: 25px;
+    padding-left: 7px;
+    height: 25px;
+    width: 100%;
+}
