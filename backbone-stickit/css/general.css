@@ -84,12 +84,12 @@ h1 {
     font: 12px/12px Arial;
 }
 
-.field.slider .control {
+.field.slider .slider-control {
     float: left;
     width: 80%;
 }
 
-.field.slider .value {
+.field.slider .slider-value {
     float: left;
     width: 20%;
     text-align: right;

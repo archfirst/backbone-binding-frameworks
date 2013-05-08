@@ -41,11 +41,9 @@ $(document).ready(function() {
                 step: 10,
                 value: model.get(options.observe),
                 slide: function( event, ui ) {
-                    // $el.find('.value').html(ui.value);
+                    model.set(options.observe, ui.value);
                 }
             });
-
-            // $el.find('.value').html(model.get(options.observe));
         }
     });
 
@@ -100,7 +98,8 @@ $(document).ready(function() {
             '#symbol': 'symbol',
             '.actions': 'actions',
             '.order-type': 'orderType',
-            '.market-value-slider': 'marketValue'
+            '#market-value .slider-control': 'marketValue',
+            '#market-value .slider-value': 'marketValue'
         },
 
         handleReset: function() {
