@@ -4,29 +4,16 @@ $(document).ready(function() {
     // -----------------------------------------
     // Select box handler
     // -----------------------------------------
-    var selHandler = _.where(Backbone.Stickit._handlers, {selector:'select'})[0];
-
     Backbone.Stickit.addHandler({
-        selector: '.selectbox',
+        selector: '.chzn-select',
         initialize: function($el, model, options) {
-            $el.selectbox({effect: 'fade'});
-
-            var changeSelection = function(model, value, opt) {
-                $el.selectbox('change', String(value));
-            };
-            this.listenTo(model, 'change:' + options.observe, changeSelection);
-        },
-
-        update: function($el, val, model, options) {
-            selHandler.update($el, val, model, options);
-            $el.selectbox({
-                onChange: function(value) {
-                    if (options.onSet) {
-                        value = options.onSet(value, options);
-                    }
-                    model.set(options.observe, value);
+            $el.chosen();
+            var up = function(m, v, opt) {
+                if (!opt.bindKey) {
+                    $el.trigger('liszt:updated');
                 }
-            });
+            };
+            this.listenTo(model, 'change:' + options.observe, up);
         }
     });
 

@@ -4,7 +4,7 @@ $(document).ready(function() {
     // -----------------------------------------
     // Initialize controls
     // -----------------------------------------
-    $('#account').selectbox({effect: 'fade'});
+    $('#account').chosen();
 
     $('#date').datepicker();
 
@@ -69,13 +69,12 @@ $(document).ready(function() {
 
         render: function () {
             // Initialize dropdown
-            $('#account').selectbox('detach');
             var dropdown = $('#account');
             dropdown.append('<option value="">All Accounts</option>');
             accounts.each(function(account) {
                 dropdown.append('<option value="' + account.id + '">' + account.get('name') + '</option>');
             });
-            $('#account').selectbox('attach');
+            $('#account').trigger("liszt:updated");
 
             this._modelBinder.bind(this.model, this.el);
         }
