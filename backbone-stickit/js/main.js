@@ -1,14 +1,13 @@
 $(document).ready(function() {
     'use strict';
 
-
     // -----------------------------------------
-    // Initialize global handlers for controls
+    // Select box handler
     // -----------------------------------------
     var selHandler = _.where(Backbone.Stickit._handlers, {selector:'select'})[0];
 
     Backbone.Stickit.addHandler({
-        selector: 'select.selectbox',
+        selector: '.selectbox',
         initialize: function($el, model, options) {
             $el.selectbox({effect: 'fade'});
 
@@ -31,19 +30,32 @@ $(document).ready(function() {
         }
     });
 
+    // -----------------------------------------
+    // Slider handler
+    // -----------------------------------------
     Backbone.Stickit.addHandler({
-        selector: '.slider-control',
-        initialize: function($el, model, options) {
-            $el.slider({
-                range: 'min',
-                min: 10,
-                max: 1000,
-                step: 10,
+        selector: '.slider',
+        events: ['change'],
+
+        initialize: function ($el, model, options) {
+            $el.slider(_.extend({
                 value: model.get(options.observe),
-                slide: function( event, ui ) {
-                    model.set(options.observe, ui.value);
+                slide: function (event, ui) {
+                    // Defer since the `slide` event is triggered
+                    // before the actual $el.slide('value') is updated.
+                    _.defer(function(){$el.trigger('change')});
                 }
+            }, options.sliderOptions));
+        },
+
+        update: function($el, val, model, options) {
+            _.defer(function() {
+                $el.slider('value', model.get(options.observe)).change();
             });
+        },
+
+        getVal: function($el, event, options) {
+            return $el.slider('value');
         }
     });
 
@@ -64,7 +76,7 @@ $(document).ready(function() {
             'symbol': 'AAPL',
             'actions': ['Sell'],
             'orderType': 'Limit',
-            'marketValue': '400'
+            'marketValue': '50'
         });
     };
 
@@ -98,8 +110,16 @@ $(document).ready(function() {
             '#symbol': 'symbol',
             '.actions': 'actions',
             '.order-type': 'orderType',
-            '#market-value .slider-control': 'marketValue',
-            '#market-value .slider-value': 'marketValue'
+            '.market-value-slider': {
+                observe: 'marketValue',
+                sliderOptions: {
+                    range: 'min',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                }
+            },
+            '.market-value': 'marketValue'
         },
 
         handleReset: function() {

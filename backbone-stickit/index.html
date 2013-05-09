@@ -17,28 +17,28 @@
 
             <h1>Order Filter</h1>
 
-            <div class="field select">
+            <div class="select-field">
                 <label for="account">Account</label>
                 <select id="account" class="selectbox"></select>
             </div>
 
-            <div class="field text">
+            <div class="text-field">
                 <label for="date">Date</label>
                 <input type="text" id="date">
             </div>
 
-            <div class="field text">
+            <div class="text-field">
                 <label for="symbol">Symbol</label>
                 <input type="text" id="symbol">
             </div>
 
             <fieldset>
                 <legend><span>Order Action</span></legend>
-                <div class="field checkbox">
+                <div class="checkbox-field">
                     <input type="checkbox" id="action-buy" class="actions" value="Buy">
                     <label for="action-buy">Buy</label>
                 </div>
-                <div class="field checkbox">
+                <div class="checkbox-field">
                     <input type="checkbox" id="action-sell" class="actions" value="Sell">
                     <label for="action-sell">Sell</label>
                 </div>
@@ -46,11 +46,11 @@
 
             <fieldset>
                 <legend><span>Order Type</span></legend>
-                <div class="field radio">
+                <div class="radio-field">
                     <input type="radio" id="type-market" name="order-type" class="order-type" value="Market" checked>
                     <label for="type-market">Market</label>
                 </div>
-                <div class="field radio">
+                <div class="radio-field">
                     <input type="radio" id="type-limit" name="order-type" class="order-type" value="Limit">
                     <label for="type-limit">Limit</label>
                 </div>
@@ -58,9 +58,9 @@
 
             <fieldset>
                 <legend><span>Market Value ($K)</span></legend>
-                <div class="field slider" id="market-value">
-                    <div class="slider-control market-value-slider"></div>
-                    <div class="slider-value"></div>
+                <div class="slider-field">
+                    <div class="slider market-value-slider"></div>
+                    <div class="value market-value"></div>
                 </div>
             </fieldset>
 
@@ -76,17 +76,17 @@
 
             <h1>Model Data</h1>
 
-            <div class="field select">
+            <div class="select-field">
                 <label>AccountId</label>
                 <div id="account-value" class="value-theme-a"></div>
             </div>
 
-            <div class="field text">
+            <div class="text-field">
                 <label>Date</label>
                 <div id="date-value" class="value-theme-a"></div>
             </div>
 
-            <div class="field text">
+            <div class="text-field">
                 <label>Symbol</label>
                 <div id="symbol-value" class="value-theme-a"></div>
             </div>
