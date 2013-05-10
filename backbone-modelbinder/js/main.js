@@ -4,8 +4,6 @@ $(document).ready(function() {
     // -----------------------------------------
     // Initialize controls
     // -----------------------------------------
-    $('#account').chosen();
-
     $('#date').datepicker();
 
     $('#market-value .control').slider({
@@ -45,6 +43,55 @@ $(document).ready(function() {
         {id: 3, name: 'Account 3'}
     ]);
 
+
+    // -----------------------------------------
+    // Selectbox view
+    // -----------------------------------------
+    var SelectboxView = Backbone.View.extend({
+        events: {
+            'change': 'handleViewChange'
+        },
+
+        initialize: function(options) {
+            this.$el.chosen();
+            this.listenTo(this.model, 'change:' + options.observe, this.handleModelChange);
+        },
+
+        // handle change event emitted by the control
+        handleViewChange: function(event) {
+            this.model.set(this.options.observe, event.target.value);
+        },
+
+        // handle change event emitted by the model
+        handleModelChange: function(model, value, options) {
+            this.$el.val(value).trigger("liszt:updated");
+        },
+
+        render: function() {
+            var selectOptions = this.options.selectOptions;
+
+            if (selectOptions.defaultOption) {
+                var label = selectOptions.defaultOption.label;
+                var value = selectOptions.defaultOption.value;
+                if (!value) { value = ""; }
+                this._appendOption(label, value);
+            }
+
+            selectOptions.collection.each(function(model) {
+                var label = model.get(selectOptions.labelPath);
+                var value = model.get(selectOptions.valuePath);
+                if (!value) { value = ""; }
+                this._appendOption(label, value);
+            }, this);
+
+            this.$el.trigger("liszt:updated");
+        },
+
+        _appendOption: function(label, value) {
+            this.$el.append('<option value="' + value + '">' + label + '</option>');
+        }
+    });
+
     // -----------------------------------------
     // Define views
     // -----------------------------------------
@@ -56,11 +103,23 @@ $(document).ready(function() {
         },
 
         initialize: function () {
+            this.accountSelector = new SelectboxView({
+                el: '#account',
+                model: this.model,
+                observe: 'accountId',
+                selectOptions: {
+                    collection: accounts,
+                    labelPath: 'name',
+                    valuePath: 'id',
+                    defaultOption: {label: 'All Accounts', value: null}
+                }
+            });
             this._modelBinder = new Backbone.ModelBinder();
         },
 
         close: function(){
             this._modelBinder.unbind();
+            this.accountSelector.remove();
         },
 
         handleReset: function() {
@@ -68,14 +127,7 @@ $(document).ready(function() {
         },
 
         render: function () {
-            // Initialize dropdown
-            var dropdown = $('#account');
-            dropdown.append('<option value="">All Accounts</option>');
-            accounts.each(function(account) {
-                dropdown.append('<option value="' + account.id + '">' + account.get('name') + '</option>');
-            });
-            $('#account').trigger("liszt:updated");
-
+            this.accountSelector.render();
             this._modelBinder.bind(this.model, this.el);
         }
     });

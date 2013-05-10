@@ -8,12 +8,12 @@ $(document).ready(function() {
         selector: '.chzn-select',
         initialize: function($el, model, options) {
             $el.chosen();
-            var up = function(m, v, opt) {
-                if (!opt.bindKey) {
+            var handleModelChange = function(model, value, options) {
+                if (!options.bindKey) {
                     $el.trigger('liszt:updated');
                 }
             };
-            this.listenTo(model, 'change:' + options.observe, up);
+            this.listenTo(model, 'change:' + options.observe, handleModelChange);
         }
     });
 
